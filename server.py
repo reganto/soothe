@@ -9,9 +9,7 @@ class HomeHandler(RequestHandler):
         self.render("index.html")
 
 
-class ChatConnection(WebSocketHandler):
-    participants = set()
-
+class BaseConnection(WebSocketHandler):
     def send(self, participant, message):
         participant.write_message(message)
 
@@ -19,30 +17,35 @@ class ChatConnection(WebSocketHandler):
         for participant in participants:
             self.send(participant, message)
 
+
+class ChatConnection(BaseConnection):
+    participants = set()
+
     def open(self):
         self.broadcast(
-                self.participants,
-                "Someone joined to room",
+            self.participants,
+            "Someone joined to room",
         )
         self.participants.add(self)
 
     def on_message(self, message):
         self.broadcast(
-                self.participants,
-                message,
+            self.participants,
+            message,
         )
+
     def on_close(self):
         self.participants.remove(self)
         self.broadcast(
-                self.participants,
-                "Someone leaved chat room",
+            self.participants,
+            "Someone leaved room",
         )
 
 
 class App(Application):
     def __init__(self):
         handlers = [
-            url('/', HomeHandler, name='foo'),
+            url("/", HomeHandler, name="foo"),
             url("/ws", ChatConnection, name="chat"),
         ]
         settings = dict(
@@ -51,8 +54,7 @@ class App(Application):
         super().__init__(handlers, **settings)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parse_command_line()
-    App().listen(8001)
+    App().listen(8000)
     IOLoop.current().start()
-
