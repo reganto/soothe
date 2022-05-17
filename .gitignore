@@ -139,3 +139,7 @@ cython_debug/
 
 # VSCode
 .vscode/
+
+# Supervisor stuff
+supervisor.log
+supervisord.pid
