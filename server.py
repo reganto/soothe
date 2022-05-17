@@ -1,7 +1,15 @@
 from tornado.web import Application, RequestHandler, url
 from tornado.ioloop import IOLoop
-from tornado.options import parse_command_line
+from tornado.options import parse_command_line, define, options
 from tornado.websocket import WebSocketHandler
+
+
+define(
+    "port",
+    default=8000,
+    type=int,
+    help="run on the given port",
+)
 
 
 class HomeHandler(RequestHandler):
@@ -56,5 +64,5 @@ class App(Application):
 
 if __name__ == "__main__":
     parse_command_line()
-    App().listen(8000)
+    App().listen(options.port)
     IOLoop.current().start()
