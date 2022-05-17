@@ -1,0 +1,22 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <input type="text" id="msg" placeholder="Message" />
+        <button type="submit" onclick="sendData()">Send</button>
+        <p id="demo"></p>
+
+    <script>
+        var socket = new WebSocket(`ws://${location.host}/ws`);
+        // Send message to server
+        function sendData() {
+            let message = document.getElementById("msg").value;
+            socket.send(message);
+        }
+        // Receive message from server
+        socket.onmessage = evt => {
+            document.getElementById("demo").innerHTML += `${evt.data} <br />`
+        }
+    </script>
+    </body>
+</html>
