@@ -1,4 +1,4 @@
-## Instructions
+## Instruction
 
 - install **tornado**
 
@@ -15,7 +15,9 @@ pip install supervisor
 - run **supervisord**
 
 ```bash
-supervisord -c supervisord.conf
+supervisord -c supervisor/init.conf
 ```
 
-- run **supervisorctl** or open http://localhost:9001 in your browser to manage processes
+- run **supervisorctl** or open http://localhost:9001 in your browser to manage processes.
+
+> Best practice: don't use **inet_http_server** in production unless you provide security for that.
