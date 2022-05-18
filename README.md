@@ -6,12 +6,6 @@
 pip install tornado
 ```
 
-- create docker image from Dockerfile
-
-```bash
-docker build -t tornado-image .
-```
-
 - install **supervisor**
 
 ```bash
