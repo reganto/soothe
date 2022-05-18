@@ -1,3 +1,12 @@
+# Soothe
+
+## Tools
+
+- Tornado as server
+- Supervisor as process manager
+- Nginx as reverse proxy and load balancer
+- Docker as container platform
+
 ## Instruction
 
 - install **tornado**
