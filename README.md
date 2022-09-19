@@ -45,6 +45,7 @@ upstream backend {
     server localhost:8003 backup;
 }
 server {
+    listen           127.0.0.1:80;
     location / {
         proxy_pass http://backend;
     }
